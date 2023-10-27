@@ -18,7 +18,7 @@ on:
       DEVICE_TREE_BRANCH:
         description: 'DEVICE_TREE_BRANCH'
         required: true
-        default: 'android-12.1'
+        default: 'OFRP-12.1'
       DEVICE_PATH:
         description: 'DEVICE_PATH'
         required: true
@@ -45,7 +45,7 @@ on:
 jobs:
   build:
     if: github.event.repository.owner.id == github.event.sender.id
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest 
     permissions:
       contents: write
     steps:
@@ -113,10 +113,7 @@ jobs:
         export TW_PREPARE_DATA_MEDIA_EARLY=true
         export OF_USE_LATEST_MAGISK=true
         export OF_FL_PATH1="/system/flashlight"
-        export OF_STATUS_H="102"
-        export OF_STATUS_INDENT_LEFT="155"
-        export OF_STATUS_INDENT_RIGHT="48"
-        export FOX_VARIANT="RUI2.0"
+        export FOX_VARIANT="RUI-2/3"
         set -e
         lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng && make clean && mka adbd ${{ github.event.inputs.BUILD_TARGET }}image -j$(nproc --all)
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
